@@ -1,0 +1,6 @@
+aws_region         = "ap-southeast-3"
+environment        = "dev"
+project_name       = "indico-faisal"
+github_repo_url    = "https://github.com/FaisalT0435/TTHT---AWS-DevSecops"
+github_repo_id     = "FaisalT0435/TTHT---AWS-DevSecops"
+github_oauth_token = "ghp_adggdyafdsadadgad"

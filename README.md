@@ -19,8 +19,17 @@ The infrastructure consists of:
 
 ### Prerequisites
 - Terraform v1.0+
-- AWS Credentials configured
+- AWS CLI installed and configured
 - GitHub PAT (Personal Access Token)
+
+### Installation & Setup
+1. **Install AWS CLI**: 
+   Download and run the installer from the [Official AWS Page](https://aws.amazon.com/cli/).
+2. **Configure AWS Credentials**:
+   ```bash
+   aws configure
+   ```
+   *Enter your AWS Access Key ID, Secret Access Key, and default region (`ap-southeast-3`).*
 
 ### Usage
 1. Initialize the project:
@@ -28,7 +37,7 @@ The infrastructure consists of:
    terraform init
    ```
 
-2. Create a `terraform.tfvars` file (see `.example` for reference).
+2. Configure your variables in `terraform.tfvars`.
 
 3. Review the plan:
    ```bash

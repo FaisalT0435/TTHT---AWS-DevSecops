@@ -10,7 +10,7 @@ crash.log
 crash.*.log
 
 # Exclude sensitive vars
-*.tfvars
+# (Removed *.tfvars to allow submission file)
 *.tfvars.json
 
 # Exclude plan files

@@ -1,6 +1,0 @@
-aws_region         = "ap-southeast-3"
-environment        = "dev"
-project_name       = "indico-faisal"
-github_repo_url    = "https://github.com/username/repository"
-github_repo_id     = "username/repository"
-github_oauth_token = "ghp_xxxxxxxxxxxxxxxxxxxxxxxx"
