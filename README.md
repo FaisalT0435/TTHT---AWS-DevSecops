@@ -9,6 +9,25 @@ The infrastructure consists of:
 - **Traffic**: ALB for distribution and health monitoring.
 - **CI/CD**: Fully automated pipeline from GitHub source to ECS deployment.
 
+## 🔄 CI/CD Workflow
+
+### 1. Infrastructure CI (GitHub Actions)
+Setiap kali ada `push` atau `Pull Request` ke branch `main`, GitHub Actions akan menjalankan:
+- **Format Check**: Memastikan penulisan kode sesuai standar HCL.
+- **Validation**: Mengecek integritas sintaks Terraform.
+
+### 2. Application CI/CD (AWS CodePipeline)
+Setelah kode masuk ke branch `main`, pipeline AWS akan terpicu secara otomatis:
+1. **Source Stage**: Mengambil kode terbaru dari GitHub.
+2. **Build Stage (CodeBuild)**:
+   - Login ke Amazon ECR.
+   - Build Docker Image dari `Dockerfile`.
+   - Push Image ke ECR Repository.
+   - Generate `imagedefinitions.json`.
+3. **Deploy Stage (ECS)**:
+   - Mengambil image terbaru dari ECR.
+   - Melakukan *Rolling Update* pada ECS Service tanpa downtime.
+
 ## Directory Structure
 - `modules/`: Contains reusable infrastructure components.
 - `main.tf`: Root configuration orchestrating all modules.

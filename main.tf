@@ -33,6 +33,13 @@ module "ecs" {
   alb_security_group_id = module.alb.alb_security_group_id
 }
 
+# ECR Repository
+module "ecr" {
+  source      = "./modules/ecr"
+  name        = var.project_name
+  environment = var.environment
+}
+
 # CodeBuild for CI
 module "codebuild" {
   source = "./modules/codebuild"
@@ -42,8 +49,9 @@ module "codebuild" {
   github_repo  = var.github_repo_url
 
   environment_variables = {
-    CLUSTER_NAME = module.ecs.cluster_id
-    SERVICE_NAME = module.ecs.service_name
+    CLUSTER_NAME   = module.ecs.cluster_id
+    SERVICE_NAME   = module.ecs.service_name
+    REPOSITORY_URI = module.ecr.repository_url
   }
 }
 
