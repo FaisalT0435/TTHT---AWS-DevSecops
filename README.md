@@ -7,21 +7,20 @@ Deployment of a scalable CI/CD pipeline using AWS native services (ECS Fargate, 
 Berikut adalah visualisasi hubungan antar layanan:
 
 ```mermaid
-graph LR
-    subgraph "Public Network"
-        ALB[Application Load Balancer]
-    end
-    subgraph "Private Network"
-        ECS[ECS Fargate Service]
-        ECR[Amazon ECR]
-    end
-    subgraph "CI/CD Pipeline"
+graph TD
+    subgraph "CI/CD Pipeline (Deployment Flow)"
         GH[GitHub Repo] --> CP[CodePipeline]
         CP --> CB[CodeBuild]
-        CB --> ECR
-        CP --> ECS
+        CB --> ECR[Amazon ECR]
+        CP --> ECS[ECS Fargate]
     end
-    ALB --> ECS
+
+    subgraph "Traffic Flow (Runtime)"
+        User((User)) --> ALB[ALB - Public Access]
+        ALB --> ECS
+    end
+
+    ECR -.->|Pull Image| ECS
 ```
 
 ## Optional Features Implemented
