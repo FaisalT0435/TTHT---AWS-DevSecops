@@ -16,6 +16,11 @@ resource "aws_ecs_cluster" "main" {
 resource "aws_iam_role" "ecs_task_execution_role" {
   name = "${var.name}-task-exec-role"
 
+  tags = {
+    Name        = "${var.name}-task-exec-role"
+    Environment = var.environment
+  }
+
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -65,6 +70,11 @@ resource "aws_ecs_task_definition" "main" {
       }
     }
   ])
+
+  tags = {
+    Name        = var.name
+    Environment = var.environment
+  }
 }
 
 resource "aws_cloudwatch_log_group" "ecs" {
@@ -116,6 +126,11 @@ resource "aws_ecs_service" "main" {
     target_group_arn = var.target_group_arn
     container_name   = var.name
     container_port   = var.container_port
+  }
+
+  tags = {
+    Name        = var.name
+    Environment = var.environment
   }
 
   depends_on = [aws_iam_role_policy_attachment.ecs_task_execution_role_policy]

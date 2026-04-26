@@ -11,6 +11,11 @@ resource "aws_s3_bucket" "artifacts" {
 resource "aws_iam_role" "pipeline" {
   name = "${var.pipeline_name}-role"
 
+  tags = {
+    Name        = "${var.pipeline_name}-role"
+    Environment = var.environment
+  }
+
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -119,5 +124,10 @@ resource "aws_codepipeline" "main" {
         FileName    = "imagedefinitions.json"
       }
     }
+  }
+
+  tags = {
+    Name        = var.pipeline_name
+    Environment = var.environment
   }
 }

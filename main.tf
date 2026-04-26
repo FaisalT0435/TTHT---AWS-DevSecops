@@ -1,12 +1,16 @@
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 # Networking infrastructure
 module "vpc" {
   source = "./modules/vpc"
 
   environment        = var.environment
-  vpc_cidr           = "10.0.0.0/16"
-  public_subnets     = ["10.0.1.0/24", "10.0.2.0/24"]
-  private_subnets    = ["10.0.10.0/24", "10.0.11.0/24"]
-  availability_zones = ["${var.aws_region}a", "${var.aws_region}b"]
+  vpc_cidr           = var.vpc_cidr
+  public_subnets     = var.public_subnets
+  private_subnets    = var.private_subnets
+  availability_zones = slice(data.aws_availability_zones.available.names, 0, 2)
 }
 
 # Application Load Balancer
@@ -17,6 +21,7 @@ module "alb" {
   environment = var.environment
   vpc_id      = module.vpc.vpc_id
   subnet_ids  = module.vpc.public_subnet_ids
+  domain_name = var.domain_name
 }
 
 # ECS Compute resources

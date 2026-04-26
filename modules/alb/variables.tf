@@ -29,3 +29,9 @@ variable "health_check_path" {
   type        = string
   default     = "/"
 }
+
+variable "domain_name" {
+  description = "Domain name for the SSL certificate"
+  type        = string
+  default     = "app.indico-faisal.com"
+}

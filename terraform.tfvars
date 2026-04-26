@@ -1,6 +1,10 @@
 aws_region         = "ap-southeast-3"
 environment        = "dev"
 project_name       = "indico-faisal"
+vpc_cidr           = "10.0.0.0/16"
+public_subnets     = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnets    = ["10.0.10.0/24", "10.0.11.0/24"]
 github_repo_url    = "https://github.com/FaisalT0435/TTHT---AWS-DevSecops"
 github_repo_id     = "FaisalT0435/TTHT---AWS-DevSecops"
 github_oauth_token = "ghp_adggdyafdsadadgad"
+domain_name        = "indico-faisal.com"
